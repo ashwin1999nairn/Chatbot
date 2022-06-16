@@ -1,0 +1,24 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Where I live intent
+  steps:
+  - intent: where_i_live
+  - action: action_remember_where
+
+- rule: Tell the weather
+  steps:
+  - intent: inquire_weather
+  - action: action_tell_weather
+
