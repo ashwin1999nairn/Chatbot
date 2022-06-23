@@ -13,11 +13,12 @@ entities:
 - place
 
 slots:
-  slot_name:
+  location:
     type: text
+    influence_conversation: true
     mappings:
     - type: from_entity
-      entity: entity_name
+      entity: place
   
 actions:
 - action_remember_where
