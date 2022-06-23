@@ -8,6 +8,10 @@ stories:
   - action: utter_greet
   - intent: mood_great
   - action: utter_happy
+  - intent: inquire_weather
+  - action: action_tell_weather
+  - intent: where_i_live
+  - action: action_remember_where
 
 - story: sad path 1
   steps:
@@ -28,3 +32,13 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: inquire_weather
+    entities:
+    - place: delhi
+  - action: action_tell_weather
+
