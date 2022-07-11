@@ -15,7 +15,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 import requests
 import random
-#
+import pandas as pd
 #
 def Weather(place):
     base_url = "http://api.openweathermap.org/data/2.5/weather?appid=d535fb9e379e10ee57c2ace5c31726a9"
@@ -103,9 +103,86 @@ class ActionRememberWhere(Action):
         current_place = next(tracker.get_latest_entity_values("place"), None)
         
         return [SlotSet("location", current_place)] 
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
+
+class ActionPlayRPS(Action):
+   
+    def name(self) -> Text:
+        return "action_play_rps"
+ 
+    def computer_choice(self):
+        generatednum = random.randint(1,3)
+        if generatednum == 1:
+            computerchoice = "rock"
+        elif generatednum == 2:
+            computerchoice = "paper"
+        elif generatednum == 3:
+            computerchoice = "scissor"
+       
+        return(computerchoice)
+ 
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            
+        current_choice = next(tracker.get_latest_entity_values("choice"), None)
+        dispatcher.utter_message(text=f"You chose {current_choice}")
+        comp_choice = self.computer_choice()
+        dispatcher.utter_message(text=f"The computer chose {comp_choice}")
+ 
+        if current_choice == "rock" and comp_choice == "scissor":
+            dispatcher.utter_message(text="Congrats, you won!")
+        elif current_choice == "rock" and comp_choice == "paper":
+            dispatcher.utter_message(text="The computer won this round.")
+        elif current_choice == "paper" and comp_choice == "rock":
+            dispatcher.utter_message(text="Congrats, you won!")
+        elif current_choice == "paper" and comp_choice == "scissor":
+            dispatcher.utter_message(text="The computer won this round.")
+        elif current_choice == "scissor" and comp_choice == "paper":
+            dispatcher.utter_message(text="Congrats, you won!")
+        elif current_choice == "scissor" and comp_choice == "rock":
+            dispatcher.utter_message(text="The computer won this round.")
+        else:
+            dispatcher.utter_message(text="It was a tie!")
+ 
+        return []
+    
+class ActionChoice(Action):
+
+    def name(self) -> Text:
+        return "action_remember_choice"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        current_choice = next(tracker.get_latest_entity_values("choice"), None)
+        
+        return [SlotSet("choice", current_choice)] 
+
+class TellJoke(Action):
+
+    def name(self) -> Text:
+        return "action_tell_joke"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        jokes_list=['single','double']
+        ran=random.choice(jokes_list)
+        if ran == 'single':
+            df=pd.read_csv(r"C:\\Users\\Ashwin\\Downloads\\single_jokes.csv")
+            jokes_ran=random.randint(0,57)
+            joke=df.iloc[jokes_ran][1]
+            dispatcher.utter_message(text=str(joke))
+        else:
+            df=pd.read_csv(r"C:\\Users\\Ashwin\\Downloads\\double_jokes.csv")
+            jokes_ran=random.randint(0,126)
+            joke=df.iloc[jokes_ran][1]
+            dispatcher.utter_message(text=str(joke))
+
+        return []
+
+
+
 #
 #     def run(self, dispatcher: CollectingDispatcher,
 #             tracker: Tracker,
