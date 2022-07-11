@@ -38,6 +38,17 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - sure
+    - ok
+    - why not
+    - ok great
+    - yes I did
+    - yeah, great
+    - pretty good
+    - fine
+    - You bet
+    - I sure did
+    - more or less
 
 - intent: deny
   examples: |
@@ -452,3 +463,165 @@ nlu:
     - Aurangabad
     - Gangtok
     - Vasco Da Gama
+
+- intent: play_a_game
+  examples: |
+    - lets play a game
+    - play a game
+    - I am bored
+    - bored
+    - what a boring day
+
+- intent: inform
+  examples: |
+    - [rock](choice)
+    - [scissor](choice)
+    - [paper](choice)
+
+- lookup: choice
+  examples: |
+    - rock
+    - paper
+    - scissor
+
+- intent: out_of_scope
+  examples: |
+    - that's not what I want to do
+    - wait stop
+    - you're no help
+    - this is no help at all
+    - how old are you
+    - tell me the weather
+    - this isn't working
+    - I already told you that
+    - don't like that
+    - I don't want to tell you that
+    - none of your business
+    - that's not right
+    - stop asking
+    - nevermind
+    - I want to do something else
+    - I changed my mind
+
+- intent: daily_wellness_form
+  examples: |
+    - daily wellness form
+    - daily wellness survey
+    - daily form
+    - daily survey
+
+- intent: form
+  examples: |
+    - Yes, I went for a [run](exercise)
+    - An hour of [yoga](exercise)
+    - yep i went for a [hike](exercise)
+    - Yes i went for a [walk](exercise)
+    - Took my dog out for a [walk](exercise)
+    - I played [tennis](exercise)
+    - yeah, I played [badminton](exercise)
+    - I had a session of [squash](exercise)
+    - yes, i went for [swimming](exercise)
+    - Took a [spin class](exercise)
+    - Did some [swimming](exercise)
+    - rock [climbing](exercise)
+    - played some [basketball](exercise)
+    - played [football](exercise)
+    - followed a [workout](exercise) video
+    - went to the [gym](exercise)
+    - a full [8 hours](sleep)
+    - about [6 hours](sleep)
+    - only [four hours](sleep)
+    - [low](stress)
+    - [medium](stress) 
+    - [high](stress)
+
+- lookup: exercise
+  examples: |
+    - run
+    - walk
+    - hike
+    - tennis
+    - football
+    - basketball
+    - boxing
+    - badminton
+    - squash
+    - workout
+    - climbing
+    - gym
+    - yoga
+
+- lookup: sleep
+  examples: |
+    - 8 hours
+    - 6 hours
+    - four hours
+
+- lookup: stress
+  examples: |
+    - low
+    - medium
+    - high
+
+- intent: anxiety_test
+  examples: |
+    - anxiety test
+    - anxiety
+    - anxiety survey
+    - anxiety form
+
+- intent: anxiety_options
+  examples: |
+    - [Not at all](anixety)
+    - [Several Days](anxiety)
+    - [More than half the days](anxiety)
+    - [Nearly every day](anxiety)
+
+- lookup: anxiety
+  examples: |
+    - Not at all
+    - Several Days
+    - More than half the days
+    - Nearly every day
+
+- intent: depression_test
+  examples: |
+    - depression test
+    - depression
+    - depression survey
+    - depression form
+ 
+- intent: depression_options
+  examples: |
+    - [Not at all](depression)
+    - [Several Days](depression)
+    - [More than half the days](depression)
+    - [Nearly every day](depression)
+
+- lookup: depression
+  examples: |
+    - Not at all
+    - Several Days
+    - More than half the days
+    - Nearly every day
+
+- intent: stop_form
+  examples: |
+    - stop the form
+    - stop
+    - i dont want to fill it further
+    - i changed my mind
+    - i dont want to fill it
+    - this is taking a lot of time, stop it
+    - too many questions
+
+- intent: joke
+  examples: |
+    - you are not funny
+    - tell a joke
+    - you are so boring
+    - cheer me up
+    - i am in mood for a joke
+    - if only you had good humour
+    - i wish someone tells me a joke
+    - tell me a joke
