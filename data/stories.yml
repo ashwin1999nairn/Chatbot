@@ -42,3 +42,181 @@ stories:
     - place: delhi
   - action: action_tell_weather
 
+- story: play rock paper scissors
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: play_a_game
+  - action: utter_chose
+  - intent: inform
+    entities:
+    - choice: rock
+  - action: action_play_rps
+
+- story: health form
+  steps:
+  - intent: daily_wellness_form
+  - action: utter_stop
+  - action: health_form
+  - active_loop: health_form
+  - slot_was_set:
+    - requested_slot: confirm_exercise
+  - slot_was_set:
+    - confirm_exercise: true
+  - slot_was_set:
+    - requested_slot: exercise
+  - slot_was_set:
+    - exercise: workout
+  - slot_was_set:
+    - requested_slot: sleep
+  - slot_was_set:
+    - sleep: 8 hours
+  - slot_was_set:
+    - requested_slot: diet
+  - slot_was_set:
+    - diet: true
+  - slot_was_set:
+    - requested_slot: stress
+  - slot_was_set:
+    - stress: low
+  - slot_was_set:
+    - requested_slot: goal
+  - slot_was_set:
+    - goal: get more exercise
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_slots_values
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: stop health form
+  steps:
+  - intent: daily_wellness_form
+  - action: utter_stop
+  - action: health_form
+  - active_loop: health_form
+  - intent: stop_form
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+  - action: action_restart
+
+- story: anxiety form
+  steps:
+  - intent: anxiety_test
+  - action: utter_stop
+  - action: anxiety_form
+  - active_loop: anxiety_form
+  - slot_was_set:
+    - requested_slot: nervous
+  - slot_was_set:
+    - nervous: More than half the days
+  - slot_was_set:
+    - requested_slot: worry
+  - slot_was_set:
+    - worry: Nearly every day
+  - slot_was_set:
+    - requested_slot: worry_too_much
+  - slot_was_set:
+    - worry_too_much: Several Days
+  - slot_was_set:
+    - requested_slot: trouble_relaxing
+  - slot_was_set:
+    - trouble_relaxing: More than half the days
+  - slot_was_set:
+    - requested_slot: restless
+  - slot_was_set:
+    - restless: Not at all
+  - slot_was_set:
+    - requested_slot: annoyed
+  - slot_was_set:
+    - annoyed: Not at all
+  - slot_was_set: 
+    - requested_slot: afraid
+  - slot_was_set:
+    - afraid: Not at all
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_slots_anxiety_values
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: stop anxiety form
+  steps:
+  - intent: anxiety_test
+  - action: utter_stop
+  - action: anxiety_form
+  - active_loop: anxiety_form
+  - intent: stop_form
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+  - action: action_restart
+
+- story: depression form
+  steps:
+  - intent: depression_test
+  - action: utter_stop
+  - action: depression_form
+  - active_loop: depression_form
+  - slot_was_set:
+    - requested_slot: depressed
+  - slot_was_set:
+    - depressed: More than half the days
+  - slot_was_set:
+    - requested_slot: lack_interest
+  - slot_was_set:
+    - lack_interest: Nearly every day
+  - slot_was_set:
+    - requested_slot: trouble_sleep
+  - slot_was_set:
+    - trouble_sleep: Several Days
+  - slot_was_set:
+    - requested_slot: poor_diet
+  - slot_was_set:
+    - poor_diet: More than half the days
+  - slot_was_set:
+    - requested_slot: tired
+  - slot_was_set:
+    - tired: Not at all
+  - slot_was_set:
+    - requested_slot: feeling_bad
+  - slot_was_set:
+    - feeling_bad: Not at all
+  - slot_was_set: 
+    - requested_slot: bad_concentration
+  - slot_was_set:
+    - bad_concentration: Not at all
+  - slot_was_set:
+    - requested_slot: hastiness
+  - slot_was_set:
+    - hastiness: Several Days
+  - slot_was_set:
+    - requested_slot: suicidal
+  - slot_was_set:
+    - suicidal: Not at all
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_slots_depression_values
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: stop depression form
+  steps:
+  - intent: depression_test
+  - action: utter_stop
+  - action: depression_form
+  - active_loop: depression_form
+  - intent: stop_form
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+  - action: action_restart
+
+- story: tell_a_joke
+  steps:
+  - intent: joke
+  - action: action_tell_joke
