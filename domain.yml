@@ -8,25 +8,281 @@ intents:
 - mood_unhappy
 - bot_challenge
 - inquire_weather
+- inform
+- play_a_game
+- form
+- out_of_scope
+- daily_wellness_form
+- anxiety_test
+- anxiety_options
+- depression_test
+- depression_options
+- stop_form
+- joke
 
 entities:
 - place
-
-slots:
-  location:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: place
+- choice
+- exercise
+- sleep
+- stress
+- anxiety
+- depression
   
 actions:
 - action_remember_where
 - action_tell_weather
+- action_play_rps
+- action_remember_choice
+- action_tell_joke
 
 responses:
  utter_greet:
   - text: "Hey! How are you?"
+ utter_stop:
+  - text: "You can stop a form in between by typing 'stop'."
+ utter_ask_confirm_exercise:
+  - text: Did you exercise yesterday? Don't sweat it if you didn't run a marathon - walks count!
+    buttons:
+      - title: 'yes'
+        payload: '/affirm'
+      - title: 'no'
+        payload: '/deny'
+ utter_ask_exercise:
+  - text: What kind of exercise did you do 💪 ?
+ utter_ask_sleep:
+  - text: "How much sleep did you get 💤  last night?"
+ utter_ask_diet:
+  - text: "Did you stick to a healthy diet 🥦  yesterday?"
+    buttons:
+      - title: 'yes'
+        payload: '/affirm'
+      - title: 'no'
+        payload: '/deny'
+ utter_ask_stress:
+  - text: "What is your stress level right now 🧘 ?"
+    buttons:
+      - title: "low"
+        payload: '/form{{"stress": "low"}}'
+      - title: "medium"
+        payload: '/form{{"stress": "medium"}}'
+      - title: "high"
+        payload: '/form{{"stress": "high"}}'
+ utter_ask_goal:
+  - text: "Setting goals - even small ones - is a great way to focus your day. What do you want to accomplish today 🥇 ?"
+ utter_slots_values:
+  - text: "You've submitted the following answers:\n
+            - Exercised?: {confirm_exercise}\n
+            - Type of exercise: {exercise}\n
+            - Sleep: {sleep}\n
+            - Stuck to a healthy diet?: {diet}\n
+            - Stress level: {stress}\n
+            - Goal: {goal}"
+
+ utter_ask_nervous:
+  - text: "How often have you been bothered by feeling nervous, anxious or on edge over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/anxiety_options{{"anxiety": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/anxiety_options{{"anxiety": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/anxiety_options{{"anxiety": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/anxiety_options{{"anxiety": "Nearly every day"}}'
+ utter_ask_worry:
+  - text: "How often have you been bothered by by not being able to stop or control worrying over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/anxiety_options{{"anxiety": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/anxiety_options{{"anxiety": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/anxiety_options{{"anxiety": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/anxiety_options{{"anxiety": "Nearly every day"}}'
+ utter_ask_worry_too_much:
+  - text: "How often have you been bothered by worrying too much about different things over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/anxiety_options{{"anxiety": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/anxiety_options{{"anxiety": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/anxiety_options{{"anxiety": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/anxiety_options{{"anxiety": "Nearly every day"}}'
+ utter_ask_trouble_relaxing:
+  - text: "How often have you been bothered by having trouble relaxing over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/anxiety_options{{"anxiety": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/anxiety_options{{"anxiety": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/anxiety_options{{"anxiety": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/anxiety_options{{"anxiety": "Nearly every day"}}'
+ utter_ask_restless:
+  - text: "How often have you been bothered by being so restless that it is hard to sit stil over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/anxiety_options{{"anxiety": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/anxiety_options{{"anxiety": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/anxiety_options{{"anxiety": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/anxiety_options{{"anxiety": "Nearly every day"}}'
+ utter_ask_annoyed:
+  - text: "How often have you been bothered by becoming easily annoyed or irritable over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/anxiety_options{{"anxiety": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/anxiety_options{{"anxiety": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/anxiety_options{{"anxiety": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/anxiety_options{{"anxiety": "Nearly every day"}}'
+ utter_ask_afraid:
+  - text: "How often have you been bothered by feeling afraid as if something awful might happen over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/anxiety_options{{"anxiety": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/anxiety_options{{"anxiety": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/anxiety_options{{"anxiety": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/anxiety_options{{"anxiety": "Nearly every day"}}'
+ utter_slots_anxiety_values:
+  - text: "You've submitted the following answers:\n
+            - feeling nervous?: {nervous}\n
+            - worry? {worry}\n
+            - worry too much?: {worry_too_much}\n
+            - trouble relaxing?: {trouble_relaxing}\n
+            - restless? {restless}\n
+            - annoyed? {annoyed}\n
+            - afraid? {afraid}"
+
+ utter_ask_depressed:
+  - text: "How often have you been bothered by feeling down, depressed, irritable or hopeless over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_lack_interest:
+  - text: "How often have you been bothered that you have little interest or pleasure in doing things too much over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_trouble_sleep:
+  - text: "How often have you been bothered by trouble falling asleep, staying asleep, or sleeping too much over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_poor_diet:
+  - text: "How often have you been bothered that you have poor appetite, weight loss or overeating over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_tired:
+  - text: "How often have you been bothered by feeling tired or having little energy being over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_feeling_bad:
+  - text: "How often have you been bothered by feeling bad about yourself- or feeling that you are a failure or that you are a failure or that you have let yourself or your family down over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_bad_concentration:
+  - text: "How often have you been bothered that you have trouble concentrating on things like work, reading or watching T.V over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_hastiness:
+  - text: "How often have you been bothered by moving or speaking so slowly that other people could have noticed? Or the opposite- being so fidgety or restless that you were movinga round a lot more than usual over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_ask_suicidal:
+  - text: "How often have you been bothered by thoughts that you would be better off dead, or hurting yourself in some way over the last two weeks?"
+    buttons:
+      - title: "Not at all"
+        payload: '/depression_options{{"depression": "Not at all"}}'
+      - title: "Several Days"
+        payload: '/depression_options{{"depression": "Several Days"}}'
+      - title: "More than half the days"
+        payload: '/depression_options{{"depression": "More than half the days"}}'
+      - title: "Nearly every day"
+        payload: '/depression_options{{"depression": "Nearly every day"}}'
+ utter_slots_depression_values:
+  - text: "You've submitted the following answers:\n
+            - feeling depressed?: {depressed}\n
+            - lack interest? {lack_interest}\n
+            - trouble sleeping? {trouble_sleep}\n
+            - poor diet? {poor_diet}\n
+            - tired? {tired}\n
+            - feeling bad? {feeling_bad}\n
+            - bad concentration? {bad_concentration}\n
+            - hastiness? {hastiness}\n
+            - suicidal? {suicidal}"
+
+    
+ utter_ask_continue:
+  - text: "Sorry, I don't quite understand. Do you want to continue?"
+
+ utter_chose:
+  - text: "Type rock paper or scissor to confirm your choice"
 
  utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -43,6 +299,278 @@ responses:
 
  utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+slots:
+  location:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: place
+  
+  choice:
+    type: text
+    influence_conversation: true   
+    mappings:
+    - type: from_entity
+      entity: choice
+
+  confirm_exercise:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - type: from_intent
+      value: true
+      intent: affirm
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+      - active_loop: health_form
+        requested_slot: confirm_exercise
+   
+  exercise:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: exercise
+      conditions:
+      - active_loop: health_form
+        requested_slot: exercise
+  sleep:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: sleep
+      conditions:
+      - active_loop: health_form
+        requested_slot: sleep
+  diet:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - type: from_intent
+      value: true
+      intent: affirm
+      
+    - type: from_intent
+      value: false
+      intent: deny
+      conditions:
+      - active_loop: health_form
+        requested_slot: diet
+  stress:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: stress
+      conditions:
+      - active_loop: health_form
+        requested_slot: stress
+  goal:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      not_intent: stop_form
+      conditions:
+      - active_loop: health_form
+        requested_slot: goal
+  
+  nervous:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: anxiety
+      conditions:
+      - active_loop: anxiety_form
+        requested_slot: nervous
+
+  worry:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: anxiety
+      conditions:
+      - active_loop: anxiety_form
+        requested_slot: worry
+
+  worry_too_much:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: anxiety
+      conditions:
+      - active_loop: anxiety_form
+        requested_slot: worry_too_much
+
+  trouble_relaxing:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: anxiety
+      conditions:
+      - active_loop: anxiety_form
+        requested_slot: trouble_relaxing
+  
+  restless:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: anxiety
+      conditions:
+      - active_loop: anxiety_form
+        requested_slot: restless
+
+  annoyed:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: anxiety
+      conditions:
+      - active_loop: anxiety_form
+        requested_slot: annoyed
+
+  afraid:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: anxiety
+      conditions:
+      - active_loop: anxiety_form
+        requested_slot: afraid
+
+  depressed:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: depressed
+  lack_interest:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: lack_interest
+
+  trouble_sleep:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: trouble_sleep
+
+  poor_diet:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: poor_diet
+
+  tired:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: tired
+
+  feeling_bad:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: feeling_bad
+
+  bad_concentration:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: bad_concentration
+
+  hastiness:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: hastiness
+
+  suicidal:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: depression
+      conditions:
+      - active_loop: depression_form
+        requested_slot: suicidal
+
+forms:
+  health_form:
+    required_slots:
+    - confirm_exercise
+    - exercise
+    - sleep
+    - diet
+    - stress
+    - goal
+  
+  anxiety_form:
+    required_slots:
+    - nervous
+    - worry
+    - worry_too_much
+    - trouble_relaxing
+    - restless
+    - annoyed
+    - afraid
+
+  depression_form:
+    required_slots:
+    - depressed
+    - lack_interest
+    - trouble_sleep
+    - poor_diet
+    - tired
+    - feeling_bad
+    - bad_concentration
+    - hastiness
+    - suicidal
+  
 
 session_config:
   session_expiration_time: 60
